@@ -22,6 +22,9 @@ let seed
 // User input fields
 let seed_input
 let enable_color_lerp = false
+let topography_height_delta = 25
+let use_topography = false
+let use_grid = true
 
 function setup() {
   // Set the color Mode
@@ -76,6 +79,18 @@ function setup() {
     enable_color_lerp = !enable_color_lerp
     console.log("Blending set to", enable_color_lerp)
   })
+  // Create togography button
+  buttonRedraw = createButton("Toggle Topography")
+  buttonRedraw.mousePressed(() => {
+    use_topography = !use_topography
+    console.log("Topography set to", use_topography)
+  })
+  // Create grid button
+  buttonRedraw = createButton("Toggle Grid")
+  buttonRedraw.mousePressed(() => {
+    use_grid = !use_grid
+    console.log("Grid set to", use_grid)
+  })
   // Create redraw button
   buttonRedraw = createButton("Re-draw Map")
   buttonRedraw.mousePressed(configForRedraw)
@@ -93,7 +108,9 @@ function clamp(value, min, max) {
 
 function getAltitudeColor(altitude) {
   scaled_value = map(altitude, world_height.min, world_height.max, 0, color_map.length-1)
-  let useLerp = enable_color_lerp&(scaled_value>0)&(scaled_value<color_map.length-1)
+  if (use_topography && Math.abs(scaled_value%0.25)<.01)
+    return color("black")
+  let useLerp = enable_color_lerp&&(scaled_value>0)&&(scaled_value<color_map.length-1)
   color_index = clamp(scaled_value, 0, color_map.length-1) | 0
   if (!useLerp)
     return world_color[color_map[color_index]]
@@ -149,19 +166,15 @@ function draw() {
   }
   // If we are done drawing the final region,
   // we need to insert lines separating the segments
-  if (current_region === region_count) {
+  if (current_region === region_count && use_grid) {
+    stroke(color("black"))
+    strokeWeight(0.5)
     /// Vertical dividers
-    for (let x = 0; x < region_count_x; x++) {
-      stroke(0)
-      strokeWeight(0.25)
+    for (let x = 0; x < region_count_x; x++)
       line (x*region_size, 0, x*region_size, height)
-    }
     /// Horizontal dividers
-    for (let y = 0; y < region_count_y; y++) {
-      stroke(0)
-      strokeWeight(0.25)
+    for (let y = 0; y < region_count_y; y++)
       line (0, y*region_size, width, y*region_size)
-    }
   }
   current_region++
 }
