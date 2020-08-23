@@ -20,9 +20,7 @@ let world_height = {"max": 500, "min": -250}
 let world_color, color_map
 let seed
 // User input fields
-let seed_input
 let enable_color_lerp = false
-let topography_height_delta = 25
 let use_topography = false
 let use_grid = true
 
@@ -52,48 +50,56 @@ function setup() {
     "MOUNTAIN_SIDE",
     "MOUNTAIN_PEAK"
   ]
-  // Create the canvas
-  canvas_reference = createCanvas(resolution_x, resolution_y)
-  console.log("Total regions:", region_count)
   // Create save button
-  buttonSave = createButton("Save Map Image")
+  let buttonSave = createButton("Save Map Image")
   buttonSave.mousePressed(save_image)
+  buttonSave.parent("Input-Div")
   // Create seed box
   seed = (random() * 1e6)|0
-  seed_input = createInput("" + seed, "Seed")
-  seed_input.input(() => {
-    console.log("Seed input received:", seed_input.value())
-    seed = parseFloat(seed_input.value())
+  let inputSeed = createInput("" + seed, "Seed")
+  inputSeed.input(() => {
+    console.log("Seed input received:", inputSeed.value())
+    seed = parseFloat(inputSeed.value())
     console.log("Seed set to:", noiseScale)
   })
+  inputSeed.parent("Input-Div")
   // Create scale box
-  scaleInput = createInput("" + noiseScale, "Scale")
-  scaleInput.input(() => {
-    console.log("Scale input received:", scaleInput.value())
-    noiseScale = parseFloat(scaleInput.value())
+  let inputScale = createInput("" + noiseScale, "Scale")
+  inputScale.input(() => {
+    console.log("Scale input received:", inputScale.value())
+    noiseScale = parseFloat(inputScale.value())
     console.log("Scale set to:", noiseScale)
   })
+  inputScale.parent("Input-Div")
   // Create lerp button
-  buttonRedraw = createButton("Toggle Blending")
-  buttonRedraw.mousePressed(() => {
+  let buttonLerp = createButton("Toggle Blending")
+  buttonLerp.mousePressed(() => {
     enable_color_lerp = !enable_color_lerp
     console.log("Blending set to", enable_color_lerp)
   })
+  buttonLerp.parent("Input-Div")
   // Create togography button
-  buttonRedraw = createButton("Toggle Topography")
-  buttonRedraw.mousePressed(() => {
+  let buttonTopography = createButton("Toggle Topography")
+  buttonTopography.mousePressed(() => {
     use_topography = !use_topography
     console.log("Topography set to", use_topography)
   })
+  buttonTopography.parent("Input-Div")
   // Create grid button
-  buttonRedraw = createButton("Toggle Grid")
-  buttonRedraw.mousePressed(() => {
+  let buttonGrid = createButton("Toggle Grid")
+  buttonGrid.mousePressed(() => {
     use_grid = !use_grid
     console.log("Grid set to", use_grid)
   })
+  buttonGrid.parent("Input-Div")
   // Create redraw button
   buttonRedraw = createButton("Re-draw Map")
   buttonRedraw.mousePressed(configForRedraw)
+  buttonRedraw.parent("Input-Div")
+  // Create the canvas
+  canvas_reference = createCanvas(resolution_x, resolution_y)
+  canvas_reference.parent("Application-Div")
+  console.log("Total regions:", region_count)
 
   configForRedraw()
 }

@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <title>Simple 2D "World" Generator</title>
+<html lang="en">
   <head>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.min.js"></script>
-    <script src="sketch.js"></script>
+    <title>Simple 2D "World" Generator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    <div align="center">
+      <h2> -- World Generator --</h2>
+    </div>
+    <div id="Application-Div" class="p5Div">
+    </div>
+    <div id="Input-Div" class="p5Div">
+    </div>
+    <div>
+      <h3>How to use this application:</h3>
+      <p>
+        This program is built on top of a JavaScript library named "p5" and uses the aforementioned library to create
+        2D world renderings. To this end, a few options have been provided for the user to customise the world. The
+        first is the ability to specify a "seed" for the underlying Perlin noise function. The next is a "scale" that
+        is also applied to the Perlin noise function. With these two features, the user can generate any number of 2D
+        worlds that they can use for any purpose they choose. To make using the worlds more accessible, a button has
+        been added that will download the current view of the world to the user's computer.
+      </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.min.js"></script>
+    <script src="sketch.js"></script>
+    <div>
+      <hr>
+      <p>Comments from the developer</p>
+      <p>
+        <b>[2020-08-23]</b>
+        This is an attempt at making a 2-dimensional "world" generator.
+        It is not meant to be complex or have much configurability as it is only a proof-of-concept.
+        An extension of this idea is that, as of the time of current implementation, the code all exists in a single file
+        and is incredibly messy. If I have the time and motivation in the future, I may revisit this project and organize
+        it to be more customizable, have various Quality of Life features, and utilize JavaScript more effectively (such
+        as by splitting the project into multiple files, or taking more advantage of JS's object/dictionary systems.)
+      </p>
+    </div>
   </body>
 </html>

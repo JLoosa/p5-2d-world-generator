@@ -1,7 +1,20 @@
+
 html, body {
-  margin: 0;
-  padding: 0;
+  margin: 15px;
+  padding: 10px;
+  background-color: darkgray;
 }
+
+.p5Div {
+  margin: 20px;
+  display: flex;
+  padding: 10px;
+  border: 10px outset black;
+  background-color: azure;
+  justify-content: center;
+  align-items: center;
+}
+
 canvas {
   display: block;
 }
